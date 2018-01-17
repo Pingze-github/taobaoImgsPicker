@@ -85,16 +85,20 @@
       $preview.find('img').attr('src', 'https://icons8.com/preloaders/preloaders/733/Thin%2012%20segments.gif');
       $msg.show();
       $.get('/pick', {key: value}, function (response, status) {
-        if (!status) alert('请求结果失败');
+        if (!status) {
+          alert('请求结果失败');
+          $msg.hide();
+        }
         if (response.Code === 0) {
           var imgs = response.Data.imgs;
           imgs.forEach((imgUrl, i) => {
-            $preview.append('<img src="' + imgUrl + '" alt="' + i + '"></img>');
+            $preview.append('<img src="' + imgUrl + '" alt="' + i + '" style="width:100%"></img>');
           });
           $msg.hide();
           $preview.show();
         } else {
           alert('解析结果失败');
+          $msg.hide();
         }
       });
     });
